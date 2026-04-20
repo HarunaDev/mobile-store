@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "app-shop",
+    "scheme": "app-shop",
     "slug": "app-shop",
     "version": "1.0.0",
     "orientation": "portrait",
