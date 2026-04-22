@@ -2,8 +2,10 @@ import { View, Text, Image, Pressable, TouchableOpacity, FlatList } from 'react-
 import { FontAwesome } from '@expo/vector-icons'
 import { CATEGORIES } from '@/assets/categories'
 import { Link } from 'expo-router'
+import { useCartStore } from '@/store/cart-store'
 
 export default function ListHeader() {
+    const {getItemCount} = useCartStore();
   return (
     <View className="px-4 pt-4 bg-gray-100">
 
@@ -30,7 +32,7 @@ export default function ListHeader() {
 
             {/* Badge */}
             <View className="absolute -top-2 -right-2 bg-red-500 w-5 h-5 rounded-full items-center justify-center">
-              <Text className="text-white text-xs font-bold">1</Text>
+              <Text className="text-white text-xs font-bold">{getItemCount()}</Text>
             </View>
           </Pressable>
 
