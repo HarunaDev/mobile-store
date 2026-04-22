@@ -63,7 +63,7 @@ export default function ListHeader() {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <Link asChild href={`/categorie/${item.slug}`}>
+            <Link asChild href={`/categories/${item.slug}`}>
               <Pressable className="mr-4 items-center">
                 
                 <Image
