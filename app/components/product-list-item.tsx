@@ -1,23 +1,25 @@
 import { View, Text, Image, Pressable } from 'react-native'
 import React from 'react'
 import { Product } from '@/types/product'
-import { useNavigation } from '@react-navigation/native'
-import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-type RootStackParamList = {
-    Home: undefined;
-    product: { slug: string };
-  };
+// import { useNavigation } from '@react-navigation/native'
+// import {NativeStackNavigationProp} from '@react-navigation/native-stack'
+import { Link } from 'expo-router'
+// type RootStackParamList = {
+//     Home: undefined;
+//     product: { slug: string };
+//   };
 
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'product'
->;
+// type NavigationProp = NativeStackNavigationProp<
+//   RootStackParamList,
+//   'product'
+// >;
 
 
 export default function ProductListItem({ product }: {product: Product}) {
-    const navigation = useNavigation<NavigationProp>();
+    
   return (
-    <Pressable onPress={() => navigation.navigate('product', { slug: product.slug })}
+    <Link href={`/product/${product.slug}`} asChild>
+        <Pressable
     className="flex-1 m-2 bg-white rounded-xl shadow p-3">
         <View className="flex-1 m-2 bg-white rounded-xl shadow p-3">
       <Image
@@ -34,5 +36,6 @@ export default function ProductListItem({ product }: {product: Product}) {
       </View>
     </View>
     </Pressable>
+    </Link>
   )
 }
