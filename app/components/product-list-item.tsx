@@ -1,19 +1,7 @@
 import { View, Text, Image, Pressable } from 'react-native'
 import React from 'react'
-import { Product } from '@/types/product'
-// import { useNavigation } from '@react-navigation/native'
-// import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import { Link } from 'expo-router'
-// type RootStackParamList = {
-//     Home: undefined;
-//     product: { slug: string };
-//   };
-
-// type NavigationProp = NativeStackNavigationProp<
-//   RootStackParamList,
-//   'product'
-// >;
-
+import { Product } from '@/types/product';
+import { Link } from 'expo-router';
 
 export default function ProductListItem({ product }: {product: Product}) {
     
