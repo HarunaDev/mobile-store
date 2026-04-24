@@ -15,17 +15,46 @@ export default function ProductDetails() {
 
   const { items, addItem, incrementItem, decrementItem } = useCartStore();
 
-  const cartItem = items.find((item) => item.id === product.id);
+  const cartItem = items.find(item => item.id === product.id);
 
   const initialQuantity = cartItem ? cartItem.quantity : 1;
 
   const [quantity, setQuantity] = useState(initialQuantity);
 
-  const increaseQuantity = () => {};
+  const increaseQuantity = () => {
+    if ( quantity < product.maxQuantity ) {
+        setQuantity(prev => prev + 1);
+        // incrementItem(product.id);
+    } else {
+        toast.show('Cannot add more than maximum quantity', {
+            type: 'warning',
+            placement: 'top',
+        });
+    }
+  };
 
-  const decreaseQuantity = () => {};
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+        setQuantity(prev => prev - 1);
+        // decrementItem(product.id);
+    }
+  };
 
-  const addToCart = () => {};
+  const addToCart = () => {
+    addItem({
+        id: product.id,
+        title: product.title,
+        image: product.heroImage,
+        price: product.price,
+        quantity,
+    });
+    setQuantity(1);
+    toast.show('Added to cart', {
+        type: "Success",
+        placement: "top",
+        duration: 1500
+    })
+  };
 
   const totalPrice = (product.price * quantity).toFixed(2);
   return (
@@ -95,7 +124,7 @@ export default function ProductDetails() {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={addToCart} disabled={quantity === 0} className={`mt-5 py-4 rounded-xl items-center ${
-      quantity === 0 ? "bg-gray-400" : "bg-primaryColor"
+      quantity === 0 ? "bg-gray-400" : "bg-green-500"
     }`}>
                 <Text className="text-white font-bold text-lg">Add to Cart</Text>
             </TouchableOpacity>
