@@ -27,6 +27,7 @@ export default function ListHeader() {
         <View className="flex-row items-center gap-5">
           
           {/* Cart */}
+          <Link asChild href={`/cart/`}>
           <Pressable className="relative">
             <FontAwesome name="shopping-cart" size={22} color="gray" />
 
@@ -35,6 +36,7 @@ export default function ListHeader() {
               <Text className="text-white text-xs font-bold">{getItemCount()}</Text>
             </View>
           </Pressable>
+          </Link>
 
           {/* Logout */}
           <TouchableOpacity>
