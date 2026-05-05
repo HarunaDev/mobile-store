@@ -50,8 +50,8 @@ class LargeSecureStore {
   }
 }
 
-const supabaseUrl = "https:// oifsruptwvraqpntbtlx.supabase.co"
-const supabasePublishableKey = "sb_publishable_iYqtf242YxwYdYADx4b9Xw_qt0IoYyW"
+const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
+const supabasePublishableKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 export const supabase = createClient(supabaseUrl, supabasePublishableKey, {
   auth: {
