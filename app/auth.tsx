@@ -10,6 +10,10 @@ import {
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import { Redirect, Stack } from "expo-router";
+import { supabase } from "@/lib/supabase";
+import { Toast } from "react-native-toast-notifications";
+import { useAuth } from "@/providers/auth-provider";
 
 const authSchema = zod.object({
   email: zod.string().email({ message: "Invalid email address" }),
@@ -19,6 +23,9 @@ const authSchema = zod.object({
 });
 
 export default function Auth() {
+  const { session } = useAuth();
+
+  if (session) return <Redirect href='/' />
   const { control, handleSubmit, formState } = useForm({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -27,12 +34,32 @@ export default function Auth() {
     },
   });
 
-  const signIn = (data: zod.infer<typeof authSchema>) => {
-    console.log(data);
+  const signIn = async (data: zod.infer<typeof authSchema>) => {
+    const { error } = await supabase.auth.signInWithPassword(data);
+
+    if (error) {
+      alert(error.message);
+    } else {
+      Toast.show('Signed in successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 1500,
+      })
+    }
   };
 
-  const signUp = (data: zod.infer<typeof authSchema>) => {
-    console.log(data);
+  const signUp = async (data: zod.infer<typeof authSchema>) => {
+    const { error } = await supabase.auth.signUp(data);
+
+    if (error) {
+      alert(error.message);
+    } else {
+      Toast.show('Signed up successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 1500,
+      })
+    }
   };
 
   return (
@@ -45,6 +72,7 @@ export default function Auth() {
     >
       {/* Dark Overlay */}
       <View className="flex-1 bg-black/60">
+      {/* <Stack.Screen options={{ headerShown: false }} /> */}
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           className="flex-1 justify-center px-6"
